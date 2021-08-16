@@ -9,7 +9,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class Main {
-
+//Программа для генерации специфичного для Formio JSON
     public static void main(String[] args) {
 	// write your code here
         try {
@@ -20,43 +20,87 @@ public class Main {
             BufferedReader reader = new BufferedReader(fr);
             BufferedWriter writer = new BufferedWriter(fw);
             String line = reader.readLine();
-            Integer attrnum = 0;
-            Integer contentnum = 3;
-            Integer number = 0;
+            int attrnum = 0;
+            int contentnum = 3;
+            int number = 0;
             while (line != null) {
                 System.out.println(line);
-                writer.write(String.format("[{\"components\":" +
-                        "[" +
-                        "{\"html\":\"<p style=\\\"text-align:center;\\\">%d</p>\"," +
-                        "\"label\":\"Контент\"," +
-                        "\"refreshOnChange\":false," +
-                        "\"key\":\"content%d\"," +
-                        "\"type\":\"content\"," +
-                        "\"input\":false," +
-                        "\"tableView\":false}]}," +
-                        "{\"components\":" +
-                        "[" +
-                        "{\"html\":\"<p style=\\\"text-align:center;\\\">%s</p>\"," +
-                        "\"label\":\"Контент\"," +
-                        "\"refreshOnChange\":false," +
-                        "\"key\":\"content%d\"," +
-                        "\"type\":\"content\"," +
-                        "\"input\":false," +
-                        "\"tableView\":false}]}," +
-                        "{\"components\":" +
-                        "[" +
-                        "{\"label\":\"attr%d\"," +
-                        "\"hideLabel\":true," +
-                        "\"tableView\":true," +
-                        "\"key\":\"attr%d\"," +
-                        "\"type\":\"textfield\"," +
-                        "\"input\":true}]}],", ++number, ++contentnum, line, ++contentnum, ++attrnum, attrnum));
-                writer.newLine();
-                line = reader.readLine();
+                if (line.charAt(0) == 'S') {
+                    writer.write(String.format("[{\"components\":" +
+                            "[" +
+                            "{\"html\":\"<p style=\\\"text-align:center;\\\">%d</p>\"," +
+                            "\"label\":\"Контент\"," +
+                            "\"refreshOnChange\":false," +
+                            "\"key\":\"content%d\"," +
+                            "\"type\":\"content\"," +
+                            "\"input\":false," +
+                            "\"tableView\":false}]}," +
+                            "{\"components\":" +
+                            "[" +
+                            "{\"html\":\"<p style=\\\"text-align:center;\\\">%s</p>\"," +
+                            "\"label\":\"Контент\"," +
+                            "\"refreshOnChange\":false," +
+                            "\"key\":\"content%d\"," +
+                            "\"type\":\"content\"," +
+                            "\"input\":false," +
+                            "\"tableView\":false}]}," +
+                            "{\"components\":" +
+                            "[" +
+                            "{\"label\":\"attr%d\"," +
+                            "\"hideLabel\":true," +
+                            "\"tableView\":true," +
+                            "\"key\":\"attr%d\"," +
+                            "\"type\":\"textfield\"," +
+                            "\"input\":true}]}],", ++number, ++contentnum, line.substring(1), ++contentnum, ++attrnum, attrnum));
+                    writer.newLine();
+                    line = reader.readLine();
+                    System.out.println("Строка");
+                }
+                else if (line.charAt(0) == 'N') {
+                    writer.write(String.format("[{\"components\":" +
+                            "[" +
+                            "{\"html\":\"<p style=\\\"text-align:center;\\\">%d</p>\"," +
+                            "\"label\":\"Контент\"," +
+                            "\"refreshOnChange\":false," +
+                            "\"key\":\"content%d\"," +
+                            "\"type\":\"content\"," +
+                            "\"input\":false," +
+                            "\"tableView\":false}]}," +
+                            "{\"components\":" +
+                            "[" +
+                            "{\"html\":\"<p style=\\\"text-align:center;\\\">%s</p>\"," +
+                            "\"label\":\"Контент\"," +
+                            "\"refreshOnChange\":false," +
+                            "\"key\":\"content%d\"," +
+                            "\"type\":\"content\"," +
+                            "\"input\":false," +
+                            "\"tableView\":false}]}," +
+                            "{\"components\":" +
+                            "[" +
+                            "{\"label\":\"attr%d\"," +
+                            "\"hideLabel\":true," +
+                            "\"mask\": false," +
+                            "\"spellcheck\": true," +
+                            "\"tableView\":true," +
+                            "\"delimiter\": false," +
+                            "\"requireDecimal\": false," +
+                            "\"inputFormat\": \"plain\"," +
+                            "\"key\":\"attr%d\"," +
+                            "\"type\":\"number\"," +
+                            "\"input\":true}]}],", ++number, ++contentnum, line.substring(1), ++contentnum, ++attrnum, attrnum));
+                    writer.newLine();
+                    line = reader.readLine();
+                    System.out.println("Число");
+                }
+                else if (line.charAt(0) == 'D') {
+                    ++contentnum;
+                    ++contentnum;
+                    ++attrnum;
+                    line = reader.readLine();
+                    System.out.println("Не выводить");
+                }
             }
             writer.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
